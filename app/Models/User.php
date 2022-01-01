@@ -13,12 +13,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use JustSteveKing\Laravel\FeatureFlags\Concerns\HasFeatures;
 
 class User extends Authenticatable
 {
     use SoftDeletes;
     use Notifiable;
     use HasFactory;
+    use HasFeatures;
 
     public $table = 'users';
 
