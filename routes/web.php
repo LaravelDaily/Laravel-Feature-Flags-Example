@@ -12,6 +12,16 @@ Route::get('/home', function () {
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+    Route::get('test', function () {
+        $team = App\Models\Team::where('name', 'beta testers')->first();
+
+        $users = App\Models\User::where('team_id', $team->id)->get();
+
+        $users->each(function ($user) {
+            $user->giveFeature('csv import');
+        });
+    });
+
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
